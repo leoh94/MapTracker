@@ -75,26 +75,6 @@ app.use(bodyParser.json());
 	var pool = new pg.Pool(config);
 	console.log(config);
 	
-	//Add a simple app.get to test connection
-	app.get('postGISConnection', function (req,res) {
-		console.log('postGISConnection');
-		pool.connect(function(err,client,done) {
-			if(err){
-				console.log("not able to get connection "+ err);
-				res.status(400).send(err);
-			}
-			client.query('SELECT name FROM formdata',function(err,result) {
-				console.log("query");
-				done();
-				if(err){
-					console.log(err);
-					res.status(400).send(err);
-				}
-				res.status(200).send(result.rows);
-			});
-		});
-	});
-	
 	// add an http server to serve files to the Edge browser 
 	// due to certificate issues it rejects the https files if they are not
 	// directly called in a typed URL
@@ -128,5 +108,25 @@ app.use(bodyParser.json());
 	app.get('/:name1/:name2/:name3/:name4', function (req, res) {
 	console.log('request '+req.params.name1+"/"+req.params.name2+"/"+req.params.name3+"/"+req.params.name4); 
 	res.sendFile(__dirname + '/'+req.params.name1+'/'+req.params.name2+ '/'+req.params.name3+"/"+req.params.name4);
+	});
+	
+	//Add a simple app.get to test connection
+	app.get('postGISConnection', function (req,res) {
+		console.log('postGISConnection');
+		pool.connect(function(err,client,done) {
+			if(err){
+				console.log("not able to get connection "+ err);
+				res.status(400).send(err);
+			}
+			client.query('SELECT name FROM formdata',function(err,result) {
+				console.log("query");
+				done();
+				if(err){
+					console.log(err);
+					res.status(400).send(err);
+				}
+				res.status(200).send(result.rows);
+			});
+		});
 	});
 
