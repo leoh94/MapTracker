@@ -87,8 +87,8 @@ app.use(bodyParser.json());
 	});
 	
 	//Add a simple app.get to test connection
-	app.get('postgistest', function (req,res) {
-		console.log('postgistest');
+	app.get('postGISConnection', function (req,res) {
+		console.log('postGISConnection');
 		pool.connect(function(err,client,done) {
 			if(err){
 				console.log("not able to get connection "+ err);
