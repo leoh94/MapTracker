@@ -70,11 +70,6 @@ app.use(bodyParser.json());
 		var split = configarray[i].split(':');
 		config[split[0].trim()] = split[1].trim();
 	}
-	//Import required connectivity code and set up database connection
-	var pg = require('pg');
-	var pool = new pg.Pool(config);
-	console.log(config);
-	
 	// add an http server to serve files to the Edge browser 
 	// due to certificate issues it rejects the https files if they are not
 	// directly called in a typed URL
@@ -86,9 +81,14 @@ app.use(bodyParser.json());
 	res.send("hello world from the HTTP server");
 	});
 	
+	//Import required connectivity code and set up database connection
+	var pg = require('pg');
+	var pool = new pg.Pool(config);
+	console.log(config);
+	
 	//Add a simple app.get to test connection
-	app.get('postGISConnection', function (req,res) {
-		console.log('postGISConnection');
+	app.get('postgistest', function (req,res) {
+		console.log('postgistest');
 		pool.connect(function(err,client,done) {
 			if(err){
 				console.log("not able to get connection "+ err);
