@@ -16,7 +16,7 @@ var privateKey = fs.readFileSync('/home/studentuser/certs/client-key.pem').toStr
 var certificate = fs.readFileSync('/home/studentuser/certs/client-cert.pem').toString();
 var credentials = {key: privateKey, cert: certificate};
 var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(4443);
+httpsServer.listen(4441);
 app.get('/', function (req, res) {
 	// run some server-side code here - e.g. connect to a database and get data
   
