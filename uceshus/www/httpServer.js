@@ -76,8 +76,8 @@ app.use(bodyParser.json());
 	console.log(config);
 	
 	//Add a simple app.get to test connection
-	app.get('postgistest', function (req,res) {
-		console.log('postgistest');
+	app.get('postGISConnection', function (req,res) {
+		console.log('postGISConnection');
 		pool.connect(function(err,client,done) {
 			if(err){
 				console.log("not able to get connection "+ err);
@@ -100,7 +100,7 @@ app.use(bodyParser.json());
 	// directly called in a typed URL
 	var http = require('http');
 	var httpServer = http.createServer(app); 
-	httpServer.listen(4481);
+	httpServer.listen(4482);
 	
 	app.get('/',function (req,res) {
 	res.send("hello world from the HTTP server");
