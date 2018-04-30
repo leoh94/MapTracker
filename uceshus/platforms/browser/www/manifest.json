@@ -1,10 +1,10 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "helloworld",
-  "short_name": "helloworld",
+  "name": "MapTracker",
+  "short_name": "MapTracker",
   "version": "MapTracker",
-  "description": "Hello World sample application that responds to the deviceready event.",
+  "description": "Mapping App with Location Tracker and Div Change Function",
   "author": "PhoneGap Team",
   "icons": [],
   "start_url": "index.html"
