@@ -83,7 +83,7 @@ app.use(bodyParser.json());
 	httpServer.listen(4482);
 	
 	app.get('/',function (req,res) {
-	res.send("hello world from the HTTP server");
+	res.send("index");
 	});
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
