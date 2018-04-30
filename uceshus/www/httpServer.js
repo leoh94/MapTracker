@@ -26,7 +26,7 @@ var app = express();
 	// directly called in a typed URL
 	var http = require('http');
 	var httpServer = http.createServer(app); 
-	httpServer.listen(4480);
+	httpServer.listen(4482);
 
 	app.get('/',function (req,res) {
 		res.send("hello world from the HTTP server");
