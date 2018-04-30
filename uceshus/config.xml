@@ -2,7 +2,7 @@
 <widget id="MapTracker" version="1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>MapTracker</name>
     <description>
-        Mapping App with Location Tracker & Div Change Function
+        Mapping App with Location Tracker and Div Change Function
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
