@@ -70,21 +70,21 @@ app.use(bodyParser.json());
 		var split = configarray[i].split(':');
 		config[split[0].trim()] = split[1].trim();
 	}
-	//Import required connectivity code and set up database connection
-	var pg = require('pg');
-	var pool = new pg.Pool(config);
-	console.log(config);
-	
 	// add an http server to serve files to the Edge browser 
 	// due to certificate issues it rejects the https files if they are not
 	// directly called in a typed URL
 	var http = require('http');
 	var httpServer = http.createServer(app); 
-	httpServer.listen(4480);
+	httpServer.listen(4483);
 	
 	app.get('/',function (req,res) {
 	res.send("hello world from the HTTP server");
 	});
+	
+	//Import required connectivity code and set up database connection
+	var pg = require('pg');
+	var pool = new pg.Pool(config);
+	console.log(config);
 	
 	//Add a simple app.get to test connection
 	app.get('postgistest', function (req,res) {
