@@ -80,7 +80,7 @@ app.use(bodyParser.json());
 	// directly called in a typed URL
 	var http = require('http');
 	var httpServer = http.createServer(app); 
-	httpServer.listen(4482);
+	httpServer.listen(4478);
 	
 	app.get('/',function (req,res) {
 	res.send("hello world from the HTTP server");
