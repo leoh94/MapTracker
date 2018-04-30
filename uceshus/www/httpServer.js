@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 		next();
 	});
 	
-	app.post('/uploadData',function(req,res){
+	/*app.post('/uploadData',function(req,res){
 	// note that we are using POST here as we are uploading data
 	// so the parameters form part of the BODY of the request rather than the RESTful API
 	console.dir(req.body);
@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 	for (var i = 0; i < configarray.length; i++) {
 		var split = configarray[i].split(':');
 		config[split[0].trim()] = split[1].trim();
-	}
+	}*/
 	// add an http server to serve files to the Edge browser 
 	// due to certificate issues it rejects the https files if they are not
 	// directly called in a typed URL
@@ -77,7 +77,7 @@ app.use(bodyParser.json());
 	var httpServer = http.createServer(app); 
 	httpServer.listen(4481);
 	
-	app.get('/',function (req,res) {
+	/*app.get('/',function (req,res) {
 	res.send("hello world from the HTTP server");
 	});
 	
@@ -104,7 +104,7 @@ app.use(bodyParser.json());
 				res.status(200).send(result.rows);
 			});
 		});
-	});
+	});*/
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
 	app.get('/:name1', function (req, res) {
