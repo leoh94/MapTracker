@@ -28,7 +28,6 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 // the functions
 
 function trackLocation() {
-	alert ('Tracking Location');
     if (navigator.geolocation) {
         navigator.geolocation.watchPosition(showPosition);
     } else {
@@ -42,7 +41,7 @@ function showPosition(position) {
 function callDivChange() {
 	alert("Changing");
 	xhr = new XMLHttpRequest();
-	xhr.open("GET", form.html , true);
+	xhr.open("GET", "form.html" , true);
 	xhr.onreadystatechange = processDivChange;
 	try {
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
