@@ -61,19 +61,7 @@ app.use(bodyParser.json());
 		next();
 	});
 
-	// read in the file and force it to be a string by adding “” at the beginning
-	var configtext =""+ fs.readFileSync('/home/studentuser/certs/postGISConnection.js');
-	// now convert the configruation file into the correct format -i.e. a name/value pair array
-	var configarray = configtext.split(",");
-	var config = {};
-	for (var i = 0; i < configarray.length; i++) {
-		var split = configarray[i].split(':');
-		config[split[0].trim()] = split[1].trim();
-	}
-	//Import required connectivity code and set up database connection
-	var pg = require('pg');
-	var pool = new pg.Pool(config);
-	console.log(config);
+	
 	
 
 	// add an http server to serve files to the Edge browser 
@@ -87,7 +75,21 @@ app.use(bodyParser.json());
 	res.send("hello world from the HTTP server");
 	});
 	
-		//Add a simple app.get to test connection
+	// read in the file and force it to be a string by adding “” at the beginning
+	var configtext =""+ fs.readFileSync('/home/studentuser/certs/postGISConnection.js');
+	// now convert the configuration file into the correct format -i.e. a name/value pair array
+	var configarray = configtext.split(",");
+	var config = {};
+	for (var i = 0; i < configarray.length; i++) {
+		var split = configarray[i].split(':');
+		config[split[0].trim()] = split[1].trim();
+	}
+	//Import required connectivity code and set up database connection
+	var pg = require('pg');
+	var pool = new pg.Pool(config);
+	console.log(config);
+	
+	//Add a simple app.get to test connection
 	app.get('postGISConnection', function (req,res) {
 		console.log('postGISConnection');
 		pool.connect(function(err,client,done) {
