@@ -27,35 +27,7 @@ app.use(bodyParser.json());
 	});
 		
 	
-	// pull the geometry component together
-	// note that well known text requires the points as longitude/latitude !
-	// well known text should look like: 'POINT(-71.064544 42.28787)'
-	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
-	var querystring = "INSERT into formdata (name,surname,module,language, modulelist, lecturetime, geom) values ('";
-	querystring = querystring + req.body.name + "','" + req.body.surname + "','" + req.body.module + "','";
-	querystring = querystring + req.body.language + "','" + req.body.modulelist + "','" + req.body.lecturetime+"',"+geometrystring + "))";
-	console.log(querystring);
-	client.query( querystring,function(err,result) {
-		done();
-		if(err){
-			console.log(err);
-			res.status(400).send(err);
-        }
-		res.status(200).send("row inserted");
-		});});
-	});
 	
-	// adding functionality to log the requests
-	app.use(function (req, res, next) {
-		var filename = path.basename(req.url);
-		var extension = path.extname(filename);
-		console.log("The file " + filename + " was requested.");
-		next();
-	});
-
-	
-	
-
 	// add an http server to serve files to the Edge browser 
 	// due to certificate issues it rejects the https files if they are not
 	// directly called in a typed URL
@@ -101,8 +73,40 @@ app.use(bodyParser.json());
 	// note that we are using POST here as we are uploading data
 	// so the parameters form part of the BODY of the request rather than the RESTful API
 	console.dir(req.body);
-	res.send(req.body);
-    }
+	pool.connect(function(err,client,done) {
+		if(err){
+			console.log("not able to get connection "+ err);
+			res.status(400).send(err);
+		}
+		var querystring = "INSERT into formdata (name,surname,module) values('" + req.body.name + "','" + req.body.surname + "','" + req.body.module+"')";
+		console.log(querystring);
+		client.query( querystring,function(err,result) {
+		done();
+		if(err){
+			console.log(err);
+			res.status(400).send(err);
+		}
+		res.status(200).send("row inserted");
+		});
+	});
+	});
+	
+	// pull the geometry component together
+	// note that well known text requires the points as longitude/latitude !
+	// well known text should look like: 'POINT(-71.064544 42.28787)'
+	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
+	var querystring = "INSERT into formdata (name,surname,module,language, modulelist, lecturetime, geom) values ('";
+	querystring = querystring + req.body.name + "','" + req.body.surname + "','" + req.body.module + "','";
+	querystring = querystring + req.body.language + "','" + req.body.modulelist + "','" + req.body.lecturetime+"',"+geometrystring + "))";
+	console.log(querystring);
+	client.query( querystring,function(err,result) {
+		done();
+		if(err){
+			console.log(err);
+			res.status(400).send(err);
+        }
+		res.status(200).send("row inserted");
+		});
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
 	app.get('/:name1', function (req, res) {
