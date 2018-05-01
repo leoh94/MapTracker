@@ -19,6 +19,7 @@ var testMarkerPink = L.AwesomeMarkers.icon({
 // this is the code that runs when the App starts
 
 	loadMap();
+	trackLocation();
 	//showPointLineCircle();
 	
 		
