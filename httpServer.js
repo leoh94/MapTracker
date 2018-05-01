@@ -25,17 +25,8 @@ app.use(bodyParser.json());
 		console.log("The file " + filename + " was requested.");
 		next();
 	});
+		
 	
-	app.post('/uploadData',function(req,res){
-	// note that we are using POST here as we are uploading data
-	// so the parameters form part of the BODY of the request rather than the RESTful API
-	console.dir(req.body);
-	res.send(req.body);
-	pool.connect(function(err,client,done) {
-       	if(err){
-          	console.log("not able to get connection "+ err);
-           	res.status(400).send(err);
-       	}
 	// pull the geometry component together
 	// note that well known text requires the points as longitude/latitude !
 	// well known text should look like: 'POINT(-71.064544 42.28787)'
@@ -72,10 +63,6 @@ app.use(bodyParser.json());
 	var httpServer = http.createServer(app); 
 	httpServer.listen(4478);
 	
-	app.get('/',function (req,res) {
-	res.send("hello world from the HTTP server");
-	});
-	
 	// read in the file and force it to be a string by adding “” at the beginning
 	var configtext =""+ fs.readFileSync('/home/studentuser/certs/postGISConnection.js');
 	// now convert the configuration file into the correct format -i.e. a name/value pair array
@@ -109,6 +96,13 @@ app.use(bodyParser.json());
 			});
 		});
 	});
+	
+	app.post('/uploadData',function(req,res){
+	// note that we are using POST here as we are uploading data
+	// so the parameters form part of the BODY of the request rather than the RESTful API
+	console.dir(req.body);
+	res.send(req.body);
+    }
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
 	app.get('/:name1', function (req, res) {
