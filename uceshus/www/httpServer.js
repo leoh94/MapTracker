@@ -75,7 +75,19 @@ app.use(bodyParser.json());
 	var pool = new pg.Pool(config);
 	console.log(config);
 	
-	//Add a simple app.get to test connection
+
+	// add an http server to serve files to the Edge browser 
+	// due to certificate issues it rejects the https files if they are not
+	// directly called in a typed URL
+	var http = require('http');
+	var httpServer = http.createServer(app); 
+	httpServer.listen(4478);
+	
+	app.get('/',function (req,res) {
+	res.send("hello world from the HTTP server");
+	});
+	
+		//Add a simple app.get to test connection
 	app.get('postGISConnection', function (req,res) {
 		console.log('postGISConnection');
 		pool.connect(function(err,client,done) {
@@ -93,16 +105,6 @@ app.use(bodyParser.json());
 				res.status(200).send(result.rows);
 			});
 		});
-	});
-	// add an http server to serve files to the Edge browser 
-	// due to certificate issues it rejects the https files if they are not
-	// directly called in a typed URL
-	var http = require('http');
-	var httpServer = http.createServer(app); 
-	httpServer.listen(4478);
-	
-	app.get('/',function (req,res) {
-	res.send("hello world from the HTTP server");
 	});
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
@@ -128,4 +130,5 @@ app.use(bodyParser.json());
 	console.log('request '+req.params.name1+"/"+req.params.name2+"/"+req.params.name3+"/"+req.params.name4); 
 	res.sendFile(__dirname + '/'+req.params.name1+'/'+req.params.name2+ '/'+req.params.name3+"/"+req.params.name4);
 	});
-
+	
+	app.use(express.static(_dirname));
