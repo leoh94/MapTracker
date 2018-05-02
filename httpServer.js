@@ -35,6 +35,7 @@ app.use(bodyParser.json());
 	var httpServer = http.createServer(app); 
 	httpServer.listen(4480);
 	
+	
 	// read in the file and force it to be a string by adding “” at the beginning
 	var configtext =""+ fs.readFileSync('/home/studentuser/certs/postGISConnection.js');
 	// now convert the configuration file into the correct format -i.e. a name/value pair array
@@ -75,10 +76,10 @@ app.use(bodyParser.json());
 	res.send(req.body);
 	});
 	
-	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
+	var geometrystring = "st_geomfromtext('POINT(" + require.body.longitude + " " + require.body.latitude + ")'";
 	var querystring = "INSERT into formdata (name,surname,module,language, modulelist, lecturetime, geom) values ('";
-	querystring = querystring + req.body.name + "','" + req.body.surname + "','" + req.body.module + "','";
-	querystring = querystring + req.body.language + "','" + req.body.modulelist + "','" + req.body.lecturetime+"',"+geometrystring + "))";
+	querystring = querystring + require.body.name + "','" + require.body.surname + "','" + require.body.module + "','";
+	querystring = querystring + require.body.lecturetime + "','" + require.body.modulelist + "','" + require.body.language "',"+ require.body.geometrystring + "))";
 	console.log(querystring);
 	client.query( querystring,function(err,result) {
 		done();
