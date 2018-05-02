@@ -76,7 +76,7 @@ app.use(bodyParser.json());
 	res.send(req.body);
 	});
 	
-	var geometrystring = "st_geomfromtext('POINT(" + require.body.longitude + " " + require.body.latitude + ")'";
+	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
 	var querystring = "INSERT into formdata (name,surname,module,lecturetime,modulelist,language,geom) values ('";
 	querystring = querystring + require.body.name + "','" + require.body.surname + "','" + require.body.module + "','";
 	querystring = querystring + require.body.lecturetime + "','" + require.body.modulelist + "','" + require.body.language + "','" + geometrystring + "))";
