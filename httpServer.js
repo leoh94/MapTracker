@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 	// directly called in a typed URL
 	var http = require('http');
 	var httpServer = http.createServer(app); 
-	httpServer.listen(4478);
+	httpServer.listen(4480);
 	
 	// read in the file and force it to be a string by adding “” at the beginning
 	var configtext =""+ fs.readFileSync('/home/studentuser/certs/postGISConnection.js');
@@ -50,8 +50,7 @@ app.use(bodyParser.json());
 	console.log(config);
 	
 	//Add a simple app.get to test connection
-	app.get("/postGISConnection", function (req,res) {
-		console.log('postGISConnection');
+	app.get('postgistest', function (req,res) {
 		pool.connect(function(err,client,done) {
 			if(err){
 				console.log("not able to get connection "+ err);
@@ -73,11 +72,9 @@ app.use(bodyParser.json());
 	// note that we are using POST here as we are uploading data
 	// so the parameters form part of the BODY of the request rather than the RESTful API
 	console.dir(req.body);
-	pool.connect(function(err,client,done) {
-		if(err){
-			console.log("not able to get connection "+ err);
-			res.status(400).send(err);
-		}
+	res.send(req.body);
+	});
+	
 	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
 	var querystring = "INSERT into formdata (name,surname,module,language, modulelist, lecturetime, geom) values ('";
 	querystring = querystring + req.body.name + "','" + req.body.surname + "','" + req.body.module + "','";
