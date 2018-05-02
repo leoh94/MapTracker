@@ -78,23 +78,7 @@ app.use(bodyParser.json());
 			console.log("not able to get connection "+ err);
 			res.status(400).send(err);
 		}
-		var querystring = "INSERT into formdata (name,surname,module) values('" + req.body.name + "','" + req.body.surname + "','" + req.body.module+"')";
-		console.log(querystring);
-		client.query( querystring,function(err,result) {
-		done();
-		if(err){
-			console.log(err);
-			res.status(400).send(err);
-		}
-		res.status(200).send("row inserted");
-		});
-	});
-	});
-	
-	// pull the geometry component together
-	// note that well known text requires the points as longitude/latitude !
-	// well known text should look like: 'POINT(-71.064544 42.28787)'
-	/*var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
+	var geometrystring = "st_geomfromtext('POINT(" + req.body.longitude + " " + req.body.latitude + ")'";
 	var querystring = "INSERT into formdata (name,surname,module,language, modulelist, lecturetime, geom) values ('";
 	querystring = querystring + req.body.name + "','" + req.body.surname + "','" + req.body.module + "','";
 	querystring = querystring + req.body.language + "','" + req.body.modulelist + "','" + req.body.lecturetime+"',"+geometrystring + "))";
@@ -106,7 +90,11 @@ app.use(bodyParser.json());
 			res.status(400).send(err);
         }
 		res.status(200).send("row inserted");
-		});*/
+		});
+	// pull the geometry component together
+	// note that well known text requires the points as longitude/latitude !
+	// well known text should look like: 'POINT(-71.064544 42.28787)'
+
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
 	app.get("/:name1", function (req, res) {
