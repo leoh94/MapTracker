@@ -97,7 +97,7 @@ app.use(bodyParser.json());
 
 	
 	// the / indicates the path that you type into the server - in this case, what happens when you type in:  http://developer.cege.ucl.ac.uk:32560/xxxxx/xxxxx
-	app.get("/:name1", function (req, res) {
+	app.get("/index.html", function (req, res) {
 	// run some server-side code
 	// the console is the command line of your server - you will see the console.log values in the terminal window
 	console.log("request "+req.params.name1);
