@@ -38,6 +38,10 @@
 		icon: 'play',
 		markerColor: 'pink'
 	 });
+	 
+	function geoJson() {
+		client.open('GET','http://developer.cege.ucl.ac.uk:30263/getPOI');
+	}
 	
 	// load the tiles
 
@@ -52,6 +56,4 @@
     }).addTo(mymap);
     
 	// load the map
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-	
-	client.open('GET', 'http://developer.cege.ucl.ac.uk:30263/getPOI');
+    var mymap = L.map('mapid').setView([51.505, -0.09], 13);	
